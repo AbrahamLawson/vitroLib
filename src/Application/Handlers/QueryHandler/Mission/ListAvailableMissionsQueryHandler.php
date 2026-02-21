@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Src\Application\Handlers\QueryHandler\Mission;
+namespace Application\Handlers\QueryHandler\Mission;
 
 use App\Models\Mission;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
-use Src\Application\Queries\Mission\ListAvailableMissionsQuery;
+use Application\Queries\Mission\ListAvailableMissionsQuery;
 
 final class ListAvailableMissionsQueryHandler
 {
@@ -16,6 +16,11 @@ final class ListAvailableMissionsQueryHandler
         $builder = Mission::query()
             ->where('status', 'published')
             ->whereNull('technician_id')
+            ->whereNotIn('id', function ($subQuery) use ($query) {
+                $subQuery->select('mission_id')
+                    ->from('mission_declines')
+                    ->where('technician_id', $query->technicianId);
+            })
             ->with(['garage', 'photos']);
 
         if ($query->latitude !== null && $query->longitude !== null && $query->radiusKm !== null) {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Src\Application\Queries\Mission;
+namespace Application\Queries\Mission;
 
 final readonly class ListAvailableMissionsQuery
 {

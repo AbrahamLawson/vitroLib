@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Src\Application\Commands\Mission;
+namespace Application\Commands\Mission;
 
 final readonly class AcceptMissionCommand
 {

@@ -20,6 +20,9 @@ use App\Http\Controllers\Api\V1\Mission\PublishMissionController;
 use App\Http\Controllers\Api\V1\Mission\CancelMissionController;
 use App\Http\Controllers\Api\V1\Mission\UploadMissionPhotoController;
 use App\Http\Controllers\Api\V1\Mission\DeleteMissionPhotoController;
+use App\Http\Controllers\Api\V1\Mission\ListAvailableMissionsController;
+use App\Http\Controllers\Api\V1\Mission\AcceptMissionController;
+use App\Http\Controllers\Api\V1\Mission\DeclineMissionController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->group(function () {
@@ -45,9 +48,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::prefix('missions')->group(function () {
             Route::get('/', ListGarageMissionsController::class);
             Route::post('/', CreateMissionController::class);
+            Route::get('/available', ListAvailableMissionsController::class);
             Route::get('/{mission}', ShowMissionController::class);
             Route::post('/{mission}/publish', PublishMissionController::class);
             Route::post('/{mission}/cancel', CancelMissionController::class);
+            Route::post('/{mission}/accept', AcceptMissionController::class);
+            Route::post('/{mission}/decline', DeclineMissionController::class);
             Route::post('/{mission}/photos', UploadMissionPhotoController::class);
             Route::delete('/{mission}/photos/{photo}', DeleteMissionPhotoController::class);
         });

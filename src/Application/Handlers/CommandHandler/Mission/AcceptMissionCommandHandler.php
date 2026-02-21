@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Src\Application\Handlers\CommandHandler\Mission;
+namespace Application\Handlers\CommandHandler\Mission;
 
 use App\Models\Mission;
-use Src\Application\Commands\Mission\AcceptMissionCommand;
+use Application\Commands\Mission\AcceptMissionCommand;
+use Domain\Mission\ValueObjects\MissionStatus;
 
 final class AcceptMissionCommandHandler
 {
@@ -13,7 +14,7 @@ final class AcceptMissionCommandHandler
     {
         $mission = Mission::findOrFail($command->missionId);
 
-        if ($mission->status !== 'published') {
+        if ($mission->status !== MissionStatus::PUBLISHED) {
             throw new \DomainException('Cette mission ne peut pas être acceptée.');
         }
 
