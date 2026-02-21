@@ -18,3 +18,10 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# Local database
+database/database.sqlite
+
+# Storage (except .gitignore)
+/storage/*
+!/storage/.gitignore
